@@ -6,6 +6,7 @@ export const contractId = "CB3XOKM2GPZTXYDKKR7BDRCBEYP2B5N42IQNGL77XX66Y6FZWMJMB
 export const server = new StellarSdk.rpc.Server(rpcUrl);
 
 // Get the poll results from the contract
+// fetchResults connects to the Soroban RPC and simulates a get_results transaction
 export async function fetchResults(): Promise<Record<number, number>> {
   // 1. Initialize the Contract instance with the deployed contract ID
   const contract = new StellarSdk.Contract(contractId);
