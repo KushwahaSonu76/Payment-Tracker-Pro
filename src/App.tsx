@@ -5,6 +5,7 @@ import { SendPaymentForm } from './components/SendPaymentForm';
 import { PaymentHistoryTable } from './components/PaymentHistoryTable';
 import { TxStatusTracker, type TxState } from './components/TxStatusTracker';
 import { ErrorBanner } from './components/ErrorBanner';
+import { ActivityFeed } from './components/ActivityFeed';
 import { kit } from './lib/wallet';
 import { simulateTransaction, pollTransactionStatus, getAllPayments } from './lib/soroban';
 import { buildPaymentTransaction, submitPaymentTransaction, networkPassphrase } from './lib/stellar';
@@ -172,6 +173,7 @@ function App() {
             <SendPaymentForm publicKey={publicKey} txState={txState} onSubmit={handleSendPayments} />
             <TxStatusTracker state={txState} hash={txHash} />
             <PaymentHistoryTable payments={payments} onRefresh={loadHistory} isLoading={isLoadingHistory} />
+            <ActivityFeed />
           </>
         ) : (
           <div className="text-center py-32">
