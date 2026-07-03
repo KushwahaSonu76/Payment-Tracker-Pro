@@ -10,7 +10,9 @@ interface Props {
   setError: (err: string | null) => void;
 }
 
-const POLL_OPTIONS = [
+import { PollOption } from '../lib/types';
+
+const POLL_OPTIONS: PollOption[] = [
   { id: 1, text: "Rust" },
   { id: 2, text: "TypeScript" },
   { id: 3, text: "Go" },
