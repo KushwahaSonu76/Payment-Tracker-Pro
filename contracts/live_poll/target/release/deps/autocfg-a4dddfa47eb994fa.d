@@ -1,0 +1,10 @@
+C:\Users\hp\Desktop\Live-Poll2\contracts\live_poll\target\release\deps\autocfg-a4dddfa47eb994fa.d: C:\Users\hp\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\autocfg-1.5.1\src\lib.rs C:\Users\hp\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\autocfg-1.5.1\src\error.rs C:\Users\hp\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\autocfg-1.5.1\src\rustc.rs C:\Users\hp\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\autocfg-1.5.1\src\version.rs
+
+C:\Users\hp\Desktop\Live-Poll2\contracts\live_poll\target\release\deps\libautocfg-a4dddfa47eb994fa.rlib: C:\Users\hp\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\autocfg-1.5.1\src\lib.rs C:\Users\hp\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\autocfg-1.5.1\src\error.rs C:\Users\hp\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\autocfg-1.5.1\src\rustc.rs C:\Users\hp\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\autocfg-1.5.1\src\version.rs
+
+C:\Users\hp\Desktop\Live-Poll2\contracts\live_poll\target\release\deps\libautocfg-a4dddfa47eb994fa.rmeta: C:\Users\hp\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\autocfg-1.5.1\src\lib.rs C:\Users\hp\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\autocfg-1.5.1\src\error.rs C:\Users\hp\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\autocfg-1.5.1\src\rustc.rs C:\Users\hp\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\autocfg-1.5.1\src\version.rs
+
+C:\Users\hp\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\autocfg-1.5.1\src\lib.rs:
+C:\Users\hp\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\autocfg-1.5.1\src\error.rs:
+C:\Users\hp\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\autocfg-1.5.1\src\rustc.rs:
+C:\Users\hp\.cargo\registry\src\index.crates.io-1949cf8c6b5b557f\autocfg-1.5.1\src\version.rs:
