@@ -1,0 +1,6 @@
+[workspace]
+members = [
+    "payment_tracker",
+    "fee_registry"
+]
+resolver = "2"
