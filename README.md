@@ -1,6 +1,15 @@
-# Payment Tracker - Stellar Testnet dApp
+# Payment Tracker Pro
 
-A fully functional, real-time decentralized application (dApp) built on the Stellar Testnet for tracking and executing payments with on-chain verification. This project is submitted for the Level 2 - Yellow Belt certification.
+[![CI](https://github.com/KushwahaSonu76/Payment-Tracker-Pro/actions/workflows/ci.yml/badge.svg)](https://github.com/KushwahaSonu76/Payment-Tracker-Pro/actions/workflows/ci.yml)
+
+A Stellar Testnet decentralized application for tracking payments on-chain with real-time event streaming and a reward fee system. Built for the Stellar Quest Level 3 - Orange Belt.
+
+## Level 3 Deliverables
+- **Smart Contracts**: `payment_tracker` and `fee_registry` deployed to Testnet.
+- **Inter-contract communication**: `payment_tracker` invokes `fee_registry` to log a fee on successful payment.
+- **Event Streaming**: Activity feed implemented in `src/components/ActivityFeed.tsx` listening to Soroban events.
+- **Responsive UI**: Fully mobile-responsive Tailwind CSS layout.
+- **Testing & CI**: Configured GitHub Actions for Rust contract tests and Vitest frontend tests.
 
 Payment Tracker allows users to connect their Stellar wallet, send XLM to multiple recipient addresses simultaneously, and securely record the payments along with their real-time statuses (`pending`, `success`, `failed`) directly on a Soroban smart contract.
 
