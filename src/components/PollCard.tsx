@@ -23,13 +23,17 @@ export function PollCard({ publicKey, setError }: Props) {
   
   const [txState, setTxState] = useState<TxState>("idle");
   const [txHash, setTxHash] = useState<string | null>(null);
+  const [isFetchLoading, setIsFetchLoading] = useState(false);
   
   const loadResults = async () => {
+    setIsFetchLoading(true);
     try {
       const res = await fetchResults();
       setResults(res);
     } catch (err: any) {
       console.error("Failed to fetch results", err);
+    } finally {
+      setIsFetchLoading(false);
     }
   };
 
@@ -170,7 +174,7 @@ export function PollCard({ publicKey, setError }: Props) {
 
       <TxStatusTracker state={txState} hash={txHash} />
       
-      <ResultsDisplay results={results} options={POLL_OPTIONS} />
+      <ResultsDisplay results={results} options={POLL_OPTIONS} onRefresh={loadResults} isLoading={isFetchLoading} />
     </div>
   );
 }

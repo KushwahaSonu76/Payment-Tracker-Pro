@@ -1,17 +1,29 @@
-import React from 'react';
+import { RotateCw } from 'lucide-react';
 
 interface Props {
   results: Record<number, number>;
   options: { id: number; text: string }[];
+  onRefresh: () => Promise<void>;
+  isLoading: boolean;
 }
 
-export function ResultsDisplay({ results, options }: Props) {
+export function ResultsDisplay({ results, options, onRefresh, isLoading }: Props) {
   const totalVotes = options.reduce((acc, opt) => acc + (results[opt.id] || 0), 0);
 
   return (
     <div className="bg-gray-800/80 border border-gray-700 p-6 rounded-xl shadow-lg mt-6 backdrop-blur-sm">
       <h3 className="text-xl font-bold text-white mb-6 flex items-center justify-between">
-        Live Results
+        <div className="flex items-center gap-2">
+          <span>Live Results</span>
+          <button 
+            onClick={onRefresh} 
+            disabled={isLoading}
+            className="p-1.5 hover:bg-gray-700 rounded-lg text-gray-400 hover:text-white transition-all disabled:opacity-50"
+            title="Refresh Results"
+          >
+            <RotateCw className={`w-4 h-4 ${isLoading ? 'animate-spin' : ''}`} />
+          </button>
+        </div>
         <span className="text-sm font-medium bg-indigo-500/20 text-indigo-300 px-3 py-1 rounded-full">
           {totalVotes} total votes
         </span>
