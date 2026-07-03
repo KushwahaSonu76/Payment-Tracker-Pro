@@ -104,13 +104,14 @@ Payment Tracker allows users to connect their Stellar wallet, send XLM to multip
 ## Screenshots
 
 ### Wallet Options Available
-![wallet-options](./screenshots/wallet-options.png)
+![Wallet Options Available](./image.png)
 
 ### Payment Form & Transaction Status
-![tx-status](./screenshots/tx-status.png)
+![Payment Form](./image-1.png)
+![Transaction Status](./image-2.png)
 
 ### Real-Time Payment History
-![payment-history](./screenshots/payment-history.png)
+![Real-Time Payment History](./image-3.png)
 
 ## Commit History Note
 
