@@ -33,7 +33,7 @@ export function WalletSelector({ publicKey, setPublicKey, setError }: Props) {
       {publicKey ? (
         <div className="flex items-center gap-4 bg-gray-800 p-2 rounded-lg shadow-md border border-gray-700">
           <span className="text-sm font-mono text-gray-300">
-            <Tooltip text="Click to copy public key">{publicKey.slice(0, 6)}...{publicKey.slice(-4)}</Tooltip>
+            <button onClick={() => navigator.clipboard.writeText(publicKey || '')} className="hover:text-white transition-colors"><Tooltip text="Click to copy public key">{publicKey.slice(0, 6)}...{publicKey.slice(-4)}</Tooltip></button>
           </span>
           <button
             onClick={handleDisconnect}
