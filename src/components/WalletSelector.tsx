@@ -1,55 +1,42 @@
-import { Tooltip } from './Tooltip';
-import React from 'react';
+import { useState } from 'react';
 import { kit } from '../lib/wallet';
 
 interface Props {
-  publicKey: string | null;
-  setPublicKey: (key: string | null) => void;
-  setError: (err: string | null) => void;
+  onConnect: (publicKey: string) => void;
+  onError: (error: string) => void;
 }
 
-export function WalletSelector({ publicKey, setPublicKey, setError }: Props) {
+export function WalletSelector({ onConnect, onError }: Props) {
+  const [publicKey, setPublicKey] = useState<string | null>(null);
+
   const handleConnect = async () => {
     try {
-      setError(null);
-      await kit.openModal({
-        onWalletSelected: async (option) => {
-          kit.setWallet(option.id);
-          const { address } = await kit.getAddress();
-          setPublicKey(address);
-        }
-      });
-    } catch (error: any) {
-      setError(error?.message || "Wallet not found / not installed or connection failed");
+      const { address } = await kit.authModal();
+      setPublicKey(address);
+      onConnect(address);
+    } catch (e: any) {
+      console.error(e);
+      onError("Wallet not found / not installed or connection failed");
     }
   };
 
-  const handleDisconnect = () => {
-    setPublicKey(null);
-  };
+  if (publicKey) {
+    return (
+      <div className="flex items-center gap-3 bg-gray-800/80 px-4 py-2 rounded-full border border-gray-700 shadow-inner">
+        <div className="w-2.5 h-2.5 rounded-full bg-green-500 animate-pulse" />
+        <span className="font-mono text-sm text-gray-300">
+          {publicKey.slice(0, 6)}...{publicKey.slice(-4)}
+        </span>
+      </div>
+    );
+  }
 
   return (
-    <div className="flex justify-end p-4">
-      {publicKey ? (
-        <div className="flex items-center gap-4 bg-gray-800 p-2 rounded-lg shadow-md border border-gray-700">
-          <span className="text-sm font-mono text-gray-300">
-            <button onClick={() => navigator.clipboard.writeText(publicKey || '')} className="hover:text-white transition-colors"><Tooltip text="Click to copy public key">{publicKey.slice(0, 6)}...{publicKey.slice(-4)}</Tooltip></button>
-          </span>
-          <button
-            onClick={handleDisconnect}
-            className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-sm rounded-md transition-colors font-semibold"
-          >
-            Disconnect
-          </button>
-        </div>
-      ) : (
-        <button
-          onClick={handleConnect}
-          className="px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-md font-semibold transition-all shadow-lg hover:shadow-indigo-500/50"
-        >
-          Connect Wallet
-        </button>
-      )}
-    </div>
+    <button
+      onClick={handleConnect}
+      className="bg-indigo-600 hover:bg-indigo-500 text-white px-6 py-2.5 rounded-full font-semibold transition-all shadow-lg hover:shadow-indigo-500/25 active:scale-95"
+    >
+      Connect Wallet
+    </button>
   );
 }
