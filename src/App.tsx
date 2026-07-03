@@ -82,10 +82,9 @@ function App() {
         
         // Extract payment ID from the result
         let paymentId: number | null = null;
-        if (recordStatus.resultMetaXdr) {
-          const meta = recordStatus.resultMetaXdr as any;
-          const resultVal = meta.v3().sorobanMeta()?.returnValue();
-          if (resultVal && resultVal.switch() === StellarSdk.xdr.ScValType.scvU32()) {
+        if (recordStatus.returnValue) {
+          const resultVal = recordStatus.returnValue;
+          if (resultVal.switch() === StellarSdk.xdr.ScValType.scvU32()) {
             paymentId = resultVal.u32();
           }
         }
