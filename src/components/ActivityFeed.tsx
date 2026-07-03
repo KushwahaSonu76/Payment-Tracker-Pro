@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import * as StellarSdk from '@stellar/stellar-sdk';
-import { networkPassphrase } from '../lib/stellar';
 
 export function ActivityFeed() {
   const [events, setEvents] = useState<any[]>([]);
@@ -10,7 +9,9 @@ export function ActivityFeed() {
     
     const fetchEvents = async () => {
       try {
-        const server = new StellarSdk.rpc.Server("https://soroban-testnet.stellar.org");
+        const rpcUrl = import.meta.env.VITE_SOROBAN_RPC_URL || "https://soroban-testnet.stellar.org";
+        const contractId = import.meta.env.VITE_PAYMENT_TRACKER_ID || "";
+        const server = new StellarSdk.rpc.Server(rpcUrl);
         // We will query events using the getEvents method
         
         // We need a startLedger. We will fetch the latest ledger minus 100 for recent events
@@ -22,7 +23,7 @@ export function ActivityFeed() {
           filters: [
             {
               type: "contract",
-              // We'd ideally filter by our contract IDs, but for this generic feed we can try to fetch recent payment events
+              contractIds: contractId ? [contractId] : undefined,
               topics: [
                  [StellarSdk.xdr.ScVal.scvSymbol("payment").toXDR("base64")]
               ]
@@ -61,7 +62,6 @@ export function ActivityFeed() {
           {events.map((ev, idx) => {
             // Very simplistic rendering of event data
             let action = "Unknown";
-            let details = "";
             try {
                const topic1 = StellarSdk.xdr.ScVal.fromXDR(ev.topic[1], "base64");
                if (topic1.switch() === StellarSdk.xdr.ScValType.scvSymbol()) {

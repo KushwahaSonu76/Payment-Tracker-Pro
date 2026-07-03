@@ -1,14 +1,16 @@
 #![cfg(test)]
 
 use crate::{FeeRegistryContract, FeeRegistryContractClient};
-use soroban_sdk::{testutils::Address as _, Address, Env};
+use soroban_sdk::{testutils::{Address as _, Events}, Address, Env, symbol_short};
+
+extern crate std;
 
 #[test]
 fn test_log_fee() {
     let env = Env::default();
     env.mock_all_auths();
 
-    let contract_id = env.register_contract(None, FeeRegistryContract);
+    let contract_id = env.register(FeeRegistryContract, ());
     let client = FeeRegistryContractClient::new(&env, &contract_id);
 
     let payer = Address::generate(&env);

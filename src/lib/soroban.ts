@@ -1,8 +1,8 @@
 import * as StellarSdk from '@stellar/stellar-sdk';
 
-export const contractId = "CAG52EC6BOCVCMCEBJBRGOECSLOC6S5E56B7TBCTVTRUBGTFEV75R3BA"; // Will update after deployment
-export const rpcUrl = "https://soroban-testnet.stellar.org";
-export const networkPassphrase = "Test SDF Network ; September 2015";
+export const contractId = import.meta.env.VITE_PAYMENT_TRACKER_ID || "";
+export const rpcUrl = import.meta.env.VITE_SOROBAN_RPC_URL || "https://soroban-testnet.stellar.org";
+export const networkPassphrase = import.meta.env.VITE_STELLAR_NETWORK_PASSPHRASE || "Test SDF Network ; September 2015";
 
 export const server = new StellarSdk.rpc.Server(rpcUrl);
 
