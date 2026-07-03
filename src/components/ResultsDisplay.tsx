@@ -1,8 +1,9 @@
+import { PollOption } from '../lib/types';
 import { RotateCw } from 'lucide-react';
 
 interface Props {
   results: Record<number, number>;
-  options: { id: number; text: string }[];
+  options: PollOption[];
   onRefresh: () => Promise<void>;
   isLoading: boolean;
 }
