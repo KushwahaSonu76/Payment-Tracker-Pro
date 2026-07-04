@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/KushwahaSonu76/Payment-Tracker-Pro/actions/workflows/ci.yml/badge.svg)](https://github.com/KushwahaSonu76/Payment-Tracker-Pro/actions/workflows/ci.yml)
 
-A Stellar Testnet decentralized application for tracking payments on-chain with real-time event streaming and a reward fee system. Built for the Stellar Quest Level 3 - Orange Belt.
+A Stellar Testnet decentralized application for tracking payments on-chain with real-time event streaming and a reward fee system. Built for the Stellar Quest Level 3 - Orange Belt. (Updated)
 
 ## Level 3 Deliverables
 - **Smart Contracts**: `payment_tracker` and `fee_registry` deployed to Testnet.
