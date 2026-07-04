@@ -14,6 +14,7 @@ soroban-sdk = "22.0.1"
 
 [dev-dependencies]
 soroban-sdk = { version = "22.0.1", features = ["testutils"] }
+fee_registry = { path = "../fee_registry" }
 
 [profile.release]
 opt-level = "z"

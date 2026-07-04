@@ -4,23 +4,23 @@ extern crate std;
 
 use crate::{PaymentTrackerContract, PaymentTrackerContractClient};
 use soroban_sdk::{testutils::{Address as _, Events}, symbol_short, Address, Env, IntoVal};
-
-// Mock fee registry contract for testing
-mod fee_registry {
-    soroban_sdk::contractimport!(file = "../target/wasm32-unknown-unknown/release/fee_registry.wasm");
-}
+use fee_registry::{FeeRegistryContract, FeeRegistryContractClient};
 
 #[test]
 fn test_record_and_update_payment() {
     let env = Env::default();
     env.mock_all_auths();
 
-    // We can use a mock contract for testing the fee registry behavior if we compile it first,
-    // or we can test using a dummy contract here. Let's use a dummy.
-    
-    // Instead of using WASM, we'll just test the core functionality of payment_tracker.
+    // Register fee_registry
+    let fee_registry_id = env.register(FeeRegistryContract, ());
+    let fee_client = FeeRegistryContractClient::new(&env, &fee_registry_id);
+
+    // Register payment_tracker
     let contract_id = env.register(PaymentTrackerContract, ());
     let client = PaymentTrackerContractClient::new(&env, &contract_id);
+
+    // Init payment_tracker with fee_registry address
+    client.init(&fee_registry_id);
 
     let sender = Address::generate(&env);
     let recipient = Address::generate(&env);
@@ -33,10 +33,12 @@ fn test_record_and_update_payment() {
     assert_eq!(record.amount, 1000);
 
     // update status
-    // since we don't have fee_registry set up with init in this test, update_status with "success" might fail or do nothing
-    // if DataKey::FeeRegistry is missing, it skips the fee_registry invoke because of `if let Some(fee_registry) = ...`
     client.update_status(&payment_id, &symbol_short!("success"));
     
     let record = client.get_payment(&payment_id);
     assert_eq!(record.status, symbol_short!("success"));
+
+    // verify fee was logged in fee_registry
+    let current_fee = fee_client.get_fee(&sender);
+    assert_eq!(current_fee, 10); // 1% of 1000
 }
