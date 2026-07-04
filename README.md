@@ -224,7 +224,7 @@ The application is programmed to respond gracefully to these 4 error classes:
 
 ## 15. Demo Video
 
-- **Watch the Demo Video:** [Stellar Quest Level 3 Demo Video](https://www.loom.com/share/placeholder_id) *(Replace with your actual Loom/YouTube link)*
+- **Watch the Demo Video:** https://youtu.be/urQQ-v_QJkc
 
 *The video walk-through highlights wallet authentication, a multi-payment flow execution, real-time activity feed notifications, the cross-contract execution trace, and responsiveness testing on mobile viewports.*
 
