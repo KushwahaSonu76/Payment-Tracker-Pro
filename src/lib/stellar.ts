@@ -11,7 +11,7 @@ export async function buildPaymentTransaction(
   const account = await server.loadAccount(senderPublicKey);
 
   const tx = new StellarSdk.TransactionBuilder(account, {
-    fee: "100",
+    fee: "300000", // Increased to prevent transaction from getting stuck during testnet fee surges
     networkPassphrase,
   })
     .addOperation(

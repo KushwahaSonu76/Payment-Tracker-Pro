@@ -18,7 +18,7 @@ export async function simulateTransaction(
   const operation = contract.call(methodName, ...args);
 
   const tx = new StellarSdk.TransactionBuilder(account, {
-    fee: "100",
+    fee: "300000", // Increased to prevent transaction from getting stuck
     networkPassphrase,
   })
     .addOperation(operation)
