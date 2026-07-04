@@ -9,6 +9,7 @@ import { ActivityFeed } from './components/ActivityFeed';
 import { kit } from './lib/wallet';
 import { simulateTransaction, pollTransactionStatus, getAllPayments } from './lib/soroban';
 import { buildPaymentTransaction, submitPaymentTransaction, networkPassphrase } from './lib/stellar';
+import { Wallet } from 'lucide-react';
 import './index.css';
 
 function App() {
@@ -107,7 +108,6 @@ function App() {
           setTxHash(paymentResp.hash);
         } catch (e: any) {
           xlmsuccess = false;
-          // Actual horizon error (e.g., underfunded)
           console.error(e);
         }
 
@@ -149,42 +149,58 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-950 via-gray-900 to-indigo-950 text-white selection:bg-indigo-500/30">
-      <nav className="border-b border-gray-800 bg-gray-900/50 backdrop-blur-md sticky top-0 z-50">
-        <div className="max-w-5xl mx-auto px-6 h-20 flex items-center justify-between">
+    <div className="min-h-screen bg-[#050510] text-white font-sans overflow-hidden relative selection:bg-indigo-500/30">
+      {/* Deep Space Background Effects */}
+      <div className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] rounded-full bg-purple-900/10 blur-[150px] pointer-events-none"></div>
+      <div className="absolute bottom-[-20%] right-[-10%] w-[60%] h-[60%] rounded-full bg-blue-900/10 blur-[150px] pointer-events-none"></div>
+
+      <nav className="border-b border-white/5 bg-black/20 backdrop-blur-md sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <div className="w-10 h-10 bg-gradient-to-tr from-indigo-500 to-purple-500 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-500/20">
-              <span className="font-bold text-xl">PT</span>
+            <div className="w-10 h-10 bg-gradient-to-tr from-blue-500 to-indigo-500 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/20">
+              <span className="font-bold text-xl text-white">PT</span>
             </div>
             <div>
-              <h1 className="text-xl font-bold tracking-tight">Payment Tracker</h1>
-              <p className="text-indigo-400 font-medium text-xs uppercase tracking-wider">Testnet Edition</p>
+              <h1 className="text-xl font-bold tracking-tight">Payment Tracker Pro</h1>
+              <p className="text-blue-400 font-semibold text-xs uppercase tracking-wider">Stellar Testnet</p>
             </div>
           </div>
           <WalletSelector onConnect={setPublicKey} onError={setError} />
         </div>
       </nav>
 
-      <main className="max-w-5xl mx-auto px-6 py-12">
+      <main className="max-w-7xl mx-auto px-6 py-12 relative z-10">
         <ErrorBanner error={error} onClose={() => setError(null)} />
 
         {publicKey ? (
-          <>
-            <SendPaymentForm publicKey={publicKey} txState={txState} onSubmit={handleSendPayments} />
-            <TxStatusTracker state={txState} hash={txHash} />
-            <PaymentHistoryTable payments={payments} onRefresh={loadHistory} isLoading={isLoadingHistory} />
-            <ActivityFeed />
-          </>
-        ) : (
-          <div className="text-center py-32">
-            <div className="w-24 h-24 bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-6 shadow-2xl">
-              <svg className="w-10 h-10 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-              </svg>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
+            {/* Left: Main Payment Glass Shard */}
+            <div className="col-span-1 relative z-20 flex flex-col gap-6 items-center animate-float-8-reverse">
+              <SendPaymentForm publicKey={publicKey} txState={txState} onSubmit={handleSendPayments} />
+              <TxStatusTracker state={txState} hash={txHash} />
             </div>
-            <h2 className="text-3xl font-bold mb-4">Connect Wallet to Start</h2>
-            <p className="text-gray-400 max-w-md mx-auto">
-              Securely track and send XLM payments on the Stellar Testnet with on-chain Soroban receipts.
+
+            {/* Right: Live Activity Feed (Drifting Cards) */}
+            <div className="col-span-1 animate-float-7">
+              <ActivityFeed />
+            </div>
+
+            {/* Bottom: Payment History Table */}
+            <div className="col-span-1 lg:col-span-2">
+              <PaymentHistoryTable payments={payments} onRefresh={loadHistory} isLoading={isLoadingHistory} />
+            </div>
+          </div>
+        ) : (
+          <div className="text-center py-32 flex flex-col items-center justify-center relative">
+            <div className="w-24 h-24 bg-white/[0.02] border border-white/5 rounded-full flex items-center justify-center mb-6 shadow-2xl animate-float-8 relative">
+              <div className="absolute -inset-0.5 bg-gradient-to-tr from-blue-500 to-indigo-500 rounded-full blur opacity-30 animate-pulse"></div>
+              <Wallet className="w-10 h-10 text-slate-400" />
+            </div>
+            <h2 className="text-3xl font-extrabold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-300 tracking-wider">
+              CONNECT WALLET TO START
+            </h2>
+            <p className="text-slate-400 max-w-md mx-auto text-sm leading-relaxed">
+              Securely track and send XLM payments on the Stellar Testnet with on-chain Soroban receipts, real-time activity event feeds, and automated registry calculations.
             </p>
           </div>
         )}
@@ -194,3 +210,4 @@ function App() {
 }
 
 export default App;
+

@@ -2,6 +2,29 @@
 
 @layer base {
   body {
-    @apply bg-gray-900 text-white antialiased;
+    @apply bg-[#050510] text-white antialiased;
   }
 }
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
+  100% { transform: translateY(0px); }
+}
+
+.animate-float-6 {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-float-8 {
+  animation: float 8s ease-in-out infinite;
+}
+
+.animate-float-8-reverse {
+  animation: float 8s ease-in-out infinite reverse;
+}
+
+.animate-float-7 {
+  animation: float 7s ease-in-out infinite;
+}
+
