@@ -16,7 +16,8 @@ export function ActivityFeed() {
         const server = new StellarSdk.rpc.Server(rpcUrl);
         
         const latestLedgerResp = await server.getLatestLedger();
-        const startLedger = latestLedgerResp.sequence - 100;
+        // Query last 3000 ledgers (~4 hours) to ensure we get events even during low activity
+        const startLedger = latestLedgerResp.sequence - 3000;
         
         const response = await server.getEvents({
           startLedger: startLedger,
@@ -24,16 +25,10 @@ export function ActivityFeed() {
             {
               type: "contract",
               contractIds: contractId ? [contractId] : undefined,
-              topics: [
-                 [StellarSdk.xdr.ScVal.scvSymbol("payment").toXDR("base64")]
-              ]
             },
             {
               type: "contract",
               contractIds: feeRegistryId ? [feeRegistryId] : undefined,
-              topics: [
-                 [StellarSdk.xdr.ScVal.scvSymbol("fee").toXDR("base64")]
-              ]
             }
           ],
           limit: 10
@@ -54,6 +49,8 @@ export function ActivityFeed() {
     return () => clearInterval(intervalId);
   }, []);
 
+  const animations = ["animate-float-6", "animate-float-7", "animate-float-8", "animate-float-8-reverse"];
+
   return (
     <div className="flex flex-col gap-4 w-full">
       <h2 className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-300 mb-2 tracking-widest uppercase flex items-center gap-2">
@@ -72,6 +69,7 @@ export function ActivityFeed() {
             let text = "Soroban Event";
             let amountVal = "";
             let color = "text-blue-400";
+            const animClass = animations[idx % animations.length];
 
             try {
               const scVal = StellarSdk.xdr.ScVal.fromXDR(ev.value, "base64");
@@ -84,7 +82,7 @@ export function ActivityFeed() {
                 try {
                   const topic1 = StellarSdk.xdr.ScVal.fromXDR(ev.topic[1], "base64");
                   const senderAddr = StellarSdk.scValToNative(topic1);
-                  text = `Fee Registry for ${senderAddr.slice(0, 4)}...${senderAddr.slice(-4)}`;
+                  text = `Fee Registry for ${senderAddr.slice(0, 6)}...${senderAddr.slice(-6)}`;
                 } catch {
                   text = "Fee Registered";
                 }
@@ -93,7 +91,7 @@ export function ActivityFeed() {
                 if (nativeVec.length === 4) {
                   const recipient = nativeVec[2];
                   const amount = Number(nativeVec[3]) / 10000000;
-                  text = `Payment Sent to ${recipient.slice(0, 4)}...${recipient.slice(-4)}`;
+                  text = `Payment Sent to ${recipient.slice(0, 6)}...${recipient.slice(-6)}`;
                   amountVal = `+${amount.toFixed(2)} XLM`;
                   color = "text-emerald-400";
                 } else if (nativeVec.length === 2) {
@@ -110,7 +108,8 @@ export function ActivityFeed() {
             return (
               <div 
                 key={idx} 
-                className="backdrop-blur-md bg-white/[0.02] border border-white/5 p-4 rounded-2xl shadow-lg hover:-translate-y-1 transition-transform cursor-pointer"
+                className={`backdrop-blur-md bg-white/[0.02] border border-white/5 p-4 rounded-2xl shadow-lg hover:-translate-y-1 transition-all cursor-pointer ${animClass}`}
+                style={{ animationDelay: `${idx * 0.4}s` }}
               >
                 <div className="flex justify-between items-center gap-6">
                   <div className="flex items-center gap-3">
@@ -127,4 +126,5 @@ export function ActivityFeed() {
     </div>
   );
 }
+
 
