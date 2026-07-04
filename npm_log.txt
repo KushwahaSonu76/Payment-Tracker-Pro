@@ -110,7 +110,7 @@ npm warn deprecated uuid@8.3.2: uuid@10 and below is no longer supported.  For E
 npm warn deprecated @safe-global/safe-gateway-typescript-sdk@3.23.1: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 npm warn deprecated @stellar/stellar-base@14.1.0: This package is now rolled into @stellar/stellar-sdk. Please use @stellar/stellar-sdk to continue receiving updates and support.
 
-added 916 packages, and audited 917 packages in 32s
+added 916 packages, and audited 917 packages in 28s
 
 135 packages are looking for funding
   run `npm fund` for details
