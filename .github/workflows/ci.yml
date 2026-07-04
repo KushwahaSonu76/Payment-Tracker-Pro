@@ -9,6 +9,8 @@ on:
 jobs:
   build_and_test:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout repository
@@ -37,8 +39,25 @@ jobs:
       - name: Test Contracts
         run: |
           cd contracts
-          find target -name "*.wasm" || true
-          cargo test > test_log.txt 2>&1 || (echo "### Test Failure Logs" >> $GITHUB_STEP_SUMMARY && echo "\`\`\`" >> $GITHUB_STEP_SUMMARY && cat test_log.txt >> $GITHUB_STEP_SUMMARY && echo "\`\`\`" >> $GITHUB_STEP_SUMMARY && exit 1)
+          cargo test > ../test_log.txt 2>&1 || touch ../test_failed
+          cat ../test_log.txt
+
+      - name: Commit and Push Test Logs
+        if: always()
+        run: |
+          if [ -f test_log.txt ]; then
+            git config --global user.name "github-actions[bot]"
+            git config --global user.email "github-actions[bot]@users.noreply.github.com"
+            git add test_log.txt
+            git commit -m "chore: add test failure logs from CI [skip ci]" && git push || true
+          fi
+
+      - name: Check Test Result
+        run: |
+          if [ -f test_failed ]; then
+            echo "Rust tests failed!"
+            exit 1
+          fi
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
