@@ -38,12 +38,17 @@ export function ActivityFeed() {
         const response = await server.getEvents({
           startLedger: startLedger,
           filters: filters,
-          limit: 10
+          limit: 100
         });
 
         if (response.events) {
-          const sorted = response.events.sort((a, b) => b.ledger - a.ledger);
-          setEvents(sorted);
+          const sorted = response.events.sort((a, b) => {
+            if (b.ledger !== a.ledger) {
+              return b.ledger - a.ledger;
+            }
+            return b.id.localeCompare(a.id);
+          });
+          setEvents(sorted.slice(0, 10));
         }
       } catch (err) {
         console.error("Failed to fetch events", err);
