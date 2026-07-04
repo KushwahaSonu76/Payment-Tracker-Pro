@@ -38,7 +38,7 @@ jobs:
         run: |
           cd contracts
           find target -name "*.wasm" || true
-          cargo test
+          cargo test > test_log.txt 2>&1 || (echo "### Test Failure Logs" >> $GITHUB_STEP_SUMMARY && echo "\`\`\`" >> $GITHUB_STEP_SUMMARY && cat test_log.txt >> $GITHUB_STEP_SUMMARY && echo "\`\`\`" >> $GITHUB_STEP_SUMMARY && exit 1)
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
