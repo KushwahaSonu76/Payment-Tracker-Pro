@@ -79,7 +79,7 @@ Below is a verified on-chain transaction showing the **cross-contract invocation
 ## 7. Live Demo
 
 The application is deployed live and fully functional on the web:
-- **Live URL:** [https://payment-tracker-pro-l3.vercel.app](https://payment-tracker-pro-l3.vercel.app) *(or your deployed Vercel/Netlify URL)*
+- **Live URL:** [https://payment-tracker-pro-sigma.vercel.app/](https://payment-tracker-pro-sigma.vercel.app/)
 
 ---
 
