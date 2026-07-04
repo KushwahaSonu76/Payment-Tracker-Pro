@@ -7,7 +7,7 @@ use soroban_sdk::{testutils::{Address as _, Events}, symbol_short, Address, Env,
 
 // Mock fee registry contract for testing
 mod fee_registry {
-    soroban_sdk::contractimport!(file = "../target/wasm32v1-none/release/fee_registry.wasm");
+    soroban_sdk::contractimport!(file = "../target/wasm32-unknown-unknown/release/fee_registry.wasm");
 }
 
 #[test]
