@@ -22,6 +22,21 @@ The script performs the following actions:
 3. Deploys `payment_tracker` to the Stellar Testnet and captures its real Contract ID.
 4. Invokes the `init` function on `payment_tracker`, passing the deployed `fee_registry` ID as a parameter to enable cross-contract communication.
 
+### Real Testnet Deployment Results
+
+**Fee Registry Contract:**
+- **Contract ID:** `CD3IBT3WEPHV6HJMYMFDY7REOMIDNB4JKH7WTPGWAS2KEJOSQK75GH2M`
+- **Deployment Tx Hash:** `620f9fe8812f8c83a0e58f9cc781fd01cd27125be7a7959e5cac6292119dad3d`
+
+**Payment Tracker Contract:**
+- **Contract ID:** `CA2KU2NE3LQHXUOUOLQZRVSE6ZY7RGHD526KBY4UABUSCLEKGA2MMSLC`
+- **Deployment Tx Hash:** `1f46b3ca79aa74d7780a77458317578b37e01bd04647f5f4577bae5dfca336d1`
+
+**Init Transaction (Binding the contracts together):**
+- **Tx Hash:** `13635ae37771edd13e86810b564e48c3a40c75b35876704093c84146860a65bb`
+
+You can verify these on [stellar.expert](https://stellar.expert/explorer/testnet).
+
 ## Frontend Testing
 You can run the frontend tests using:
 ```bash
