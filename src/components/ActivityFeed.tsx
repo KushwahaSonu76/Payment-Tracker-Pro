@@ -78,8 +78,15 @@ export function ActivityFeed() {
             let color = "text-blue-400";
             const animClass = animations[idx % animations.length];
 
+            const getScVal = (val: any) => {
+              if (typeof val === 'string') {
+                return StellarSdk.xdr.ScVal.fromXDR(val, "base64");
+              }
+              return val;
+            };
+
             try {
-              const scVal = StellarSdk.xdr.ScVal.fromXDR(ev.value, "base64");
+              const scVal = getScVal(ev.value);
               
               if (scVal.switch() === StellarSdk.xdr.ScValType.scvI128()) {
                 const feeVal = StellarSdk.scValToNative(scVal);
@@ -87,7 +94,7 @@ export function ActivityFeed() {
                 color = "text-purple-400";
                 
                 try {
-                  const topic1 = StellarSdk.xdr.ScVal.fromXDR(ev.topic[1], "base64");
+                  const topic1 = getScVal(ev.topic[1]);
                   const senderAddr = StellarSdk.scValToNative(topic1);
                   text = `Fee Registry for ${senderAddr.slice(0, 6)}...${senderAddr.slice(-6)}`;
                 } catch {
