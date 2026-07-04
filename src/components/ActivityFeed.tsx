@@ -11,6 +11,7 @@ export function ActivityFeed() {
       try {
         const rpcUrl = import.meta.env.VITE_SOROBAN_RPC_URL || "https://soroban-testnet.stellar.org";
         const contractId = import.meta.env.VITE_PAYMENT_TRACKER_ID || "";
+        const feeRegistryId = import.meta.env.VITE_FEE_REGISTRY_ID || "";
         const server = new StellarSdk.rpc.Server(rpcUrl);
         // We will query events using the getEvents method
         
@@ -27,13 +28,22 @@ export function ActivityFeed() {
               topics: [
                  [StellarSdk.xdr.ScVal.scvSymbol("payment").toXDR("base64")]
               ]
+            },
+            {
+              type: "contract",
+              contractIds: feeRegistryId ? [feeRegistryId] : undefined,
+              topics: [
+                 [StellarSdk.xdr.ScVal.scvSymbol("fee").toXDR("base64")]
+              ]
             }
           ],
-          limit: 10
+          limit: 20
         });
 
         if (response.events) {
-          setEvents(response.events.reverse());
+          // sort by ledger sequence descending
+          const sorted = response.events.sort((a, b) => b.ledger - a.ledger);
+          setEvents(sorted);
         }
       } catch (err) {
         console.error("Failed to fetch events", err);
@@ -72,8 +82,8 @@ export function ActivityFeed() {
             return (
               <div key={idx} className="flex flex-col sm:flex-row sm:items-center justify-between p-3 bg-gray-800/40 rounded-xl text-sm border border-gray-700/50">
                 <div>
-                  <span className="font-semibold text-indigo-400 uppercase text-xs mr-2">{action}</span>
-                  <span className="text-gray-300">Contract Event</span>
+                  <span className="font-semibold text-indigo-400 uppercase text-xs mr-2">{ev.contractId === contractId ? `PAYMENT: ${action}` : 'FEE LOGGED'}</span>
+                  <span className="text-gray-300">{ev.contractId === contractId ? 'Contract Event' : 'Fee Registry'}</span>
                 </div>
                 <div className="text-gray-500 text-xs mt-1 sm:mt-0">Ledger {ev.ledger}</div>
               </div>
