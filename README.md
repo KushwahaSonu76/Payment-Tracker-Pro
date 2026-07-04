@@ -206,25 +206,25 @@ The application is programmed to respond gracefully to these 4 error classes:
 ## 14. Screenshots
 
 ### Mobile Responsive UI
-![mobile](./screenshots/mobile-responsive.png)
+![mobile]![alt text](image-4.png)
 
 ### CI/CD Pipeline Running
-![ci-cd](./screenshots/ci-pipeline.png)
+![ci-cd]![alt text](image-5.png)
 
 ### Test Output (3+ Passing Tests)
-![tests](./screenshots/test-output.png)
+![tests]![alt text](image-8.png)
 
 ### Wallet Options
-![wallet-options](./screenshots/wallet-options.png)
+![wallet-options]![alt text](image-6.png)
 
 ### Live Activity Feed
-![activity-feed](./screenshots/activity-feed.png)
+![activity-feed]![alt text](image-7.png)
 
 ---
 
 ## 15. Demo Video
 
-- **Watch the Demo Video:** [Stellar Quest Level 3 Demo Video](https://youtu.be/urQQ-v_QJkc)
+- **Watch the Demo Video:** [Stellar Quest Level 3 Demo Video](https://www.loom.com/share/placeholder_id) *(Replace with your actual Loom/YouTube link)*
 
 *The video walk-through highlights wallet authentication, a multi-payment flow execution, real-time activity feed notifications, the cross-contract execution trace, and responsiveness testing on mobile viewports.*
 
