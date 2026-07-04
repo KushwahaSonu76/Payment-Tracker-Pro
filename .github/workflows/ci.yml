@@ -37,6 +37,7 @@ jobs:
       - name: Test Contracts
         run: |
           cd contracts
+          find target -name "*.wasm" || true
           cargo test
 
       - name: Setup Node.js
