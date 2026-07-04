@@ -19,18 +19,25 @@ export function ActivityFeed() {
         // Query last 3000 ledgers (~4 hours) to ensure we get events even during low activity
         const startLedger = latestLedgerResp.sequence - 3000;
         
+        const filters = [];
+        if (contractId) {
+          filters.push({
+            type: "contract" as const,
+            contractIds: [contractId]
+          });
+        }
+        if (feeRegistryId) {
+          filters.push({
+            type: "contract" as const,
+            contractIds: [feeRegistryId]
+          });
+        }
+
+        if (filters.length === 0) return;
+
         const response = await server.getEvents({
           startLedger: startLedger,
-          filters: [
-            {
-              type: "contract",
-              contractIds: contractId ? [contractId] : undefined,
-            },
-            {
-              type: "contract",
-              contractIds: feeRegistryId ? [feeRegistryId] : undefined,
-            }
-          ],
+          filters: filters,
           limit: 10
         });
 
