@@ -100,7 +100,7 @@ export function ActivityFeed() {
                 
                 try {
                   const topic1 = getScVal(ev.topic[1]);
-                  const senderAddr = StellarSdk.scValToNative(topic1);
+                  const senderAddr = String(StellarSdk.scValToNative(topic1));
                   text = `Fee Registry for ${senderAddr.slice(0, 6)}...${senderAddr.slice(-6)}`;
                 } catch {
                   text = "Fee Registered";
@@ -108,7 +108,7 @@ export function ActivityFeed() {
               } else if (scVal.switch() === StellarSdk.xdr.ScValType.scvVec()) {
                 const nativeVec = StellarSdk.scValToNative(scVal);
                 if (nativeVec.length === 4) {
-                  const recipient = nativeVec[2];
+                  const recipient = String(nativeVec[2]);
                   const amount = Number(nativeVec[3]) / 10000000;
                   text = `Payment Sent to ${recipient.slice(0, 6)}...${recipient.slice(-6)}`;
                   amountVal = `+${amount.toFixed(2)} XLM`;
