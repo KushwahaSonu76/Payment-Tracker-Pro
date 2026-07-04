@@ -9,7 +9,7 @@ import { ActivityFeed } from './components/ActivityFeed';
 import { kit } from './lib/wallet';
 import { simulateTransaction, pollTransactionStatus, getAllPayments } from './lib/soroban';
 import { buildPaymentTransaction, submitPaymentTransaction, networkPassphrase } from './lib/stellar';
-import { Box, Wallet, Activity } from 'lucide-react';
+import { Wallet } from 'lucide-react';
 import './index.css';
 
 function App() {
@@ -173,47 +173,8 @@ function App() {
         <ErrorBanner error={error} onClose={() => setError(null)} />
 
         {publicKey ? (
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 items-start">
-            {/* Left: Architecture (Floating Nodes) */}
-            <div className="flex flex-col gap-8 items-center lg:items-start animate-float-6">
-              <h2 className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300 mb-4 tracking-widest uppercase">
-                Architecture
-              </h2>
-              <div className="flex flex-col gap-6 relative">
-                {/* Connection Line */}
-                <div className="absolute left-6 top-6 bottom-6 w-[2px] bg-gradient-to-b from-blue-500/50 to-purple-500/50 blur-[1px]"></div>
-                
-                <div className="flex items-center gap-4 bg-white/[0.02] border border-white/5 p-3 rounded-2xl backdrop-blur-md relative z-10 w-52 shadow-lg hover:bg-white/[0.05] transition-all">
-                  <div className="bg-blue-500/20 p-2 rounded-xl text-blue-400">
-                    <Box className="w-5 h-5" />
-                  </div>
-                  <span className="text-sm font-medium text-slate-300">Frontend</span>
-                </div>
-
-                <div className="flex items-center gap-4 bg-white/[0.02] border border-white/5 p-3 rounded-2xl backdrop-blur-md relative z-10 w-52 shadow-lg hover:bg-white/[0.05] transition-all">
-                  <div className="bg-blue-500/20 p-2 rounded-xl text-blue-400">
-                    <Wallet className="w-5 h-5" />
-                  </div>
-                  <span className="text-sm font-medium text-slate-300">Wallet Kit</span>
-                </div>
-
-                <div className="flex items-center gap-4 bg-white/[0.02] border border-white/5 p-3 rounded-2xl backdrop-blur-md relative z-10 w-52 shadow-lg hover:bg-white/[0.05] transition-all">
-                  <div className="bg-blue-500/20 p-2 rounded-xl text-blue-400">
-                    <Activity className="w-5 h-5" />
-                  </div>
-                  <span className="text-sm font-medium text-slate-300">payment_tracker</span>
-                </div>
-
-                <div className="flex items-center gap-4 bg-white/[0.02] border border-white/5 p-3 rounded-2xl backdrop-blur-md relative z-10 w-52 shadow-lg hover:bg-white/[0.05] transition-all">
-                  <div className="bg-purple-500/20 p-2 rounded-xl text-purple-400">
-                    <Activity className="w-5 h-5" />
-                  </div>
-                  <span className="text-sm font-medium text-slate-300">fee_registry</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Center: Main Payment Glass Shard */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
+            {/* Left: Main Payment Glass Shard */}
             <div className="col-span-1 relative z-20 flex flex-col gap-6 items-center animate-float-8-reverse">
               <SendPaymentForm publicKey={publicKey} txState={txState} onSubmit={handleSendPayments} />
               <TxStatusTracker state={txState} hash={txHash} />
@@ -225,7 +186,7 @@ function App() {
             </div>
 
             {/* Bottom: Payment History Table */}
-            <div className="col-span-1 lg:col-span-3">
+            <div className="col-span-1 lg:col-span-2">
               <PaymentHistoryTable payments={payments} onRefresh={loadHistory} isLoading={isLoadingHistory} />
             </div>
           </div>
