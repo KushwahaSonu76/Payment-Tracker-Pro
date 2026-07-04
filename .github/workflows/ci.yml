@@ -23,7 +23,7 @@ jobs:
           override: true
 
       - name: Install Stellar CLI
-        run: cargo install --locked stellar-cli --features opt
+        uses: stellar/stellar-cli@v22.0.1
 
       - name: Build Contracts
         run: |
