@@ -11,8 +11,8 @@ export function ActivityFeed() {
     const fetchEvents = async () => {
       try {
         const rpcUrl = import.meta.env.VITE_SOROBAN_RPC_URL || "https://soroban-testnet.stellar.org";
-        const contractId = import.meta.env.VITE_PAYMENT_TRACKER_ID || "";
-        const feeRegistryId = import.meta.env.VITE_FEE_REGISTRY_ID || "";
+        const contractId = import.meta.env.VITE_PAYMENT_TRACKER_ID || "CA2KU2NE3LQHXUOUOLQZRVSE6ZY7RGHD526KBY4UABUSCLEKGA2MMSLC";
+        const feeRegistryId = import.meta.env.VITE_FEE_REGISTRY_ID || "CD3IBT3WEPHV6HJMYMFDY7REOMIDNB4JKH7WTPGWAS2KEJOSQK75GH2M";
         const server = new StellarSdk.rpc.Server(rpcUrl);
         
         const latestLedgerResp = await server.getLatestLedger();

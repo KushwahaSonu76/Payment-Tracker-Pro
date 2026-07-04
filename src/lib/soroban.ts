@@ -1,6 +1,6 @@
 import * as StellarSdk from '@stellar/stellar-sdk';
 
-export const contractId = import.meta.env.VITE_PAYMENT_TRACKER_ID || "";
+export const contractId = import.meta.env.VITE_PAYMENT_TRACKER_ID || "CA2KU2NE3LQHXUOUOLQZRVSE6ZY7RGHD526KBY4UABUSCLEKGA2MMSLC";
 export const rpcUrl = import.meta.env.VITE_SOROBAN_RPC_URL || "https://soroban-testnet.stellar.org";
 export const networkPassphrase = import.meta.env.VITE_STELLAR_NETWORK_PASSPHRASE || "Test SDF Network ; September 2015";
 
