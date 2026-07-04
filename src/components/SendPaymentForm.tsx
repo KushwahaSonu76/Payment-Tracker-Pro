@@ -53,25 +53,44 @@ export function SendPaymentForm({ publicKey, txState, onSubmit }: Props) {
   const isProcessing = txState !== 'idle' && txState !== 'success' && txState !== 'error';
 
   return (
-    <form onSubmit={handleSubmit} className="bg-gray-800/80 border border-gray-700 p-8 rounded-2xl shadow-2xl backdrop-blur-sm mt-8">
-      <h2 className="text-2xl font-bold text-white mb-6">Send Payments</h2>
+    <form onSubmit={handleSubmit} className="backdrop-blur-xl bg-white/[0.03] border border-white/10 p-8 rounded-3xl shadow-[0_0_40px_rgba(59,130,246,0.15)] w-full max-w-md relative overflow-hidden">
+      {/* Inner Glow */}
+      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-blue-500 to-transparent opacity-50"></div>
       
-      <div className="space-y-4">
+      <h2 className="text-2xl font-bold mb-8 text-center text-white tracking-wide">
+        Payment Input
+      </h2>
+      
+      <div className="space-y-6 max-h-[300px] overflow-y-auto pr-1">
         {payments.map((p, i) => (
-          <div key={i} className="flex gap-4 items-start">
-            <div className="flex-1">
-              <label className="block text-sm font-medium text-gray-400 mb-1">Recipient Public Key</label>
+          <div key={i} className="space-y-4 border-b border-white/5 pb-4 last:border-0 last:pb-0">
+            <div className="flex justify-between items-center">
+              <span className="text-xs font-semibold text-blue-200/50 uppercase tracking-widest">Recipient #{i + 1}</span>
+              {payments.length > 1 && (
+                <button
+                  type="button"
+                  onClick={() => removeRecipient(i)}
+                  className="text-gray-400 hover:text-red-400 p-1 rounded transition-colors"
+                >
+                  <Trash2 className="w-4 h-4" />
+                </button>
+              )}
+            </div>
+
+            <div className="space-y-2">
+              <label className="block text-xs text-blue-200/70 uppercase tracking-wider pl-1 font-semibold">Recipient Address</label>
               <input
                 type="text"
                 required
                 value={p.recipient}
                 onChange={(e) => updatePayment(i, 'recipient', e.target.value)}
                 placeholder="G..."
-                className="w-full bg-gray-900/50 border border-gray-700 rounded-lg px-4 py-2 text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors"
+                className="w-full bg-black/40 border border-white/5 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all placeholder:text-slate-600"
               />
             </div>
-            <div className="w-32">
-              <label className="block text-sm font-medium text-gray-400 mb-1">Amount (XLM)</label>
+
+            <div className="space-y-2">
+              <label className="block text-xs text-blue-200/70 uppercase tracking-wider pl-1 font-semibold">Amount (XLM)</label>
               <input
                 type="number"
                 required
@@ -79,42 +98,37 @@ export function SendPaymentForm({ publicKey, txState, onSubmit }: Props) {
                 min="0.0000001"
                 value={p.amount}
                 onChange={(e) => updatePayment(i, 'amount', e.target.value)}
-                placeholder="0.0"
-                className="w-full bg-gray-900/50 border border-gray-700 rounded-lg px-4 py-2 text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 transition-colors"
+                placeholder="0.00"
+                className="w-full bg-black/40 border border-white/5 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-blue-500/50 focus:ring-1 focus:ring-blue-500/50 transition-all placeholder:text-slate-600"
               />
             </div>
-            {payments.length > 1 && (
-              <button
-                type="button"
-                onClick={() => removeRecipient(i)}
-                className="mt-7 p-2 text-gray-400 hover:text-red-400 hover:bg-red-400/10 rounded-lg transition-colors"
-              >
-                <Trash2 className="w-5 h-5" />
-              </button>
-            )}
           </div>
         ))}
       </div>
 
-      <div className="flex items-center justify-between mt-6">
+      <div className="flex flex-col gap-4 mt-6">
         <button
           type="button"
           onClick={addRecipient}
-          className="flex items-center gap-2 text-indigo-400 hover:text-indigo-300 font-medium transition-colors"
+          className="flex items-center justify-center gap-2 text-blue-400 hover:text-blue-300 font-medium transition-colors text-sm py-2 border border-dashed border-blue-500/30 rounded-xl bg-blue-500/5 hover:bg-blue-500/10"
         >
           <Plus className="w-4 h-4" />
           Add Recipient
         </button>
 
-        <button
-          type="submit"
-          disabled={!publicKey || isProcessing}
-          className="flex items-center gap-2 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white px-8 py-3 rounded-xl font-bold transition-all shadow-lg hover:shadow-indigo-500/25 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+        <button 
+          type="submit" 
+          disabled={!publicKey || isProcessing} 
+          className="w-full group relative disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          <Send className="w-4 h-4" />
-          {isProcessing ? 'Processing...' : 'Send Payments'}
+          <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl blur opacity-60 group-hover:opacity-100 transition duration-500"></div>
+          <div className="relative flex items-center justify-center gap-2 bg-black/50 backdrop-blur-sm border border-white/10 px-4 py-3 rounded-xl text-white font-medium hover:bg-black/20 transition-all">
+            <Send size={18} className="text-blue-400 group-hover:text-white transition-colors animate-pulse" />
+            <span>{isProcessing ? 'Processing...' : 'Send Transaction'}</span>
+          </div>
         </button>
       </div>
     </form>
   );
 }
+
